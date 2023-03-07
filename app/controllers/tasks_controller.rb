@@ -102,15 +102,7 @@ class TasksController < ApplicationController
       end
     end
 
-    serialized_task = {
-      'id' => task.id,
-      'userId' => user.id,
-      'status' => task.status,
-      'name' => task.name,
-      'createdAt' => task.created_at,
-      'completedAt' => task.completed_at
-    }
-
+    serialized_task = TaskSerializer.new(task, user).as_json
     render(json: serialized_task)
   end
 

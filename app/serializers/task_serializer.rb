@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class TaskSerializer
-  attr_reader :task, :user
-
   def initialize(task, user)
     @task = task
     @user = user
@@ -18,4 +16,8 @@ class TaskSerializer
       'completedAt' => task.completed_at
     }
   end
+
+  private
+
+  attr_reader :task, :user
 end

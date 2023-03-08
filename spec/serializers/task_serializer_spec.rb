@@ -3,13 +3,14 @@
 require 'rails_helper'
 
 RSpec.describe TaskSerializer do
-  let(:user) { create(:user) }
-  let(:task) { create(:task) }
-  let(:serializer) { described_class.new(task, user) }
+  subject(:serializer) { described_class.new(task, user) }
+
+  let(:user) { build_stubbed(:user) }
+  let(:task) { build_stubbed(:task) }
 
   describe '#as_json' do
-    it 'returns the expected hash' do
-      expected_hash = {
+    let(:expected_hash) do
+      {
         'id' => task.id,
         'userId' => user.id,
         'status' => task.status,
@@ -17,6 +18,9 @@ RSpec.describe TaskSerializer do
         'createdAt' => task.created_at,
         'completedAt' => task.completed_at
       }
+    end
+
+    it 'returns the expected hash' do
       expect(serializer.as_json).to eq(expected_hash)
     end
   end

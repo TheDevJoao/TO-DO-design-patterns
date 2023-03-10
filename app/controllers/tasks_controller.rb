@@ -62,7 +62,7 @@ class TasksController < ApplicationController
   def complete
     task = user.tasks.find(params[:id])
 
-    TaskCompleter.call(task: task)
+    TaskCompleter.call(task:)
 
     serialized_task = TaskSerializer.new(task, user).as_json
     render(json: serialized_task)

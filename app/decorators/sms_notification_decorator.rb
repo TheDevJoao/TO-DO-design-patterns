@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
 class SmsNotificationDecorator < NotificationDecorator
-  def initialize(task:)
-    super(task:)
-  end
-
   def notify_user
     sms_client = FakeSmsClient.new(
       account_id: ENV.fetch('FAKE_SMS_ACCOUNT_ID'),

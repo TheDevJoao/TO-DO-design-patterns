@@ -15,10 +15,10 @@ RSpec.describe TaskCompleter do
     end
 
     context 'when task is completed' do
-      let(:task) { create(:task, :completed) }
+      let(:task) { create(:task, status: :completed) }
 
       it 'does not update the task' do
-        expect { described_class.call(task:) }.not_to change(task.reload.status)
+        expect { described_class.call(task:) }.not_to change{task.reload.status}
       end
     end
 

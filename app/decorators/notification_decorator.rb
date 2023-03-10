@@ -5,6 +5,10 @@ class NotificationDecorator
     @task = task
   end
 
+  def notify_user
+    raise NotImplementedError 'Method not yet implemented'
+  end
+
   def user
     task&.user
   end

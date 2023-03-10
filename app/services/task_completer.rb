@@ -24,8 +24,8 @@ class TaskCompleter < ApplicationService
   private_constant :NOTIFICATION_DECORATORS
 
   def build_notification_decorator
-    task.user.notification_preferences['task_completed'].map do |client|
-      NOTIFICATION_DECORATORS[client].new(task:)
+    task.user.notification_preferences['task_completed'].each do |client|
+      NOTIFICATION_DECORATORS[client].new(task:).notify_user
     end
   end
 end

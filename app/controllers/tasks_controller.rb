@@ -14,12 +14,12 @@ class TasksController < ApplicationController
   end
 
   def create
-    task = user.tasks.new(create_task_params.merge(status: :pending))
+    result = TaskCreator.call(user:, status: :pending, name: create_task_params[:name])
 
-    if task.save
-      render(status: :created, json: TaskSerializer.new(task, user).as_json)
+    if result.failure?
+      render(status: :unprocessable_entity, json: ErrorSerializer.new(result.data[:errors]).as_json)
     else
-      render(status: :unprocessable_entity, json: ErrorSerializer.new(task.errors.full_messages).as_json)
+      render(status: :created, json: TaskSerializer.new(result.data[:task], user).as_json)
     end
   end
 
